@@ -1,15 +1,16 @@
 import { loginSchema } from '@/types/login'
 import { compare } from 'bcrypt'
-import { Prisma } from '@/lib/prisma'
+import { prisma } from '@/lib/prisma'
 import jwt from 'jsonwebtoken'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   try {
-    const body = req.body
+    const body = await req.json()
+
     const { email, password } = loginSchema.parse(body)
 
-    const user = await Prisma.user.findFirst({
+    const user = await prisma.user.findFirst({
       where: {
         email,
       },

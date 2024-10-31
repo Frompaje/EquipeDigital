@@ -45,7 +45,7 @@ export const LoginForm = () => {
           </div>
           <div>
             <label className="text-purple-800" htmlFor="password">
-              Password
+              Senha
             </label>
             <Input
               type="password"
@@ -56,8 +56,7 @@ export const LoginForm = () => {
           </div>
 
           <Button type="submit" disabled={isPending || !isValid}>
-            Entrar
-            {isPending && <LoadingSpin />}
+            {isPending ? <LoadingSpin /> : 'Entrar'}
           </Button>
         </div>
       </form>
