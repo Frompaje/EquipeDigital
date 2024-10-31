@@ -6,16 +6,18 @@ import { LoadingSpin } from '@/components/loadingSpin'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
+import { useAuth } from '@/providers/authContext'
 
 export const LoginForm = () => {
-  const redirect = useNavigate()
+  const { handleLogin } = useAuth()
+
   const { mutate, isPending } = useMutation({
     mutationFn: AuthService.auth,
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       toast.success('Bem-vindo(a), Logado com sucesso!')
-      setTimeout(() => redirect('/'), 200)
+      await handleLogin(data)
     },
 
     onError: async () => {

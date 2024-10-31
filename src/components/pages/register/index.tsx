@@ -10,13 +10,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 export const RegisterForm = () => {
-  const redirect = useNavigate()
+  const navigate = useNavigate()
 
   const { mutate, isPending } = useMutation({
     mutationFn: RegisterService.register,
     onSuccess: async () => {
       toast.success('Usuário criado com sucesso!')
-      setTimeout(() => redirect('/'), 200)
+      setTimeout(() => navigate('/'), 400)
     },
     onError: () => {
       toast.error('Credenciais inválidas')
