@@ -1,7 +1,10 @@
+import { InvalidCredential } from '@/error/InvalidCredential'
+import { PasswordNotMatched } from '@/error/passwordNotMatched'
 import { prisma } from '@/lib/prisma'
 import { registerSchema } from '@/types/register'
 import { hash } from 'bcrypt'
 import { NextResponse } from 'next/server'
+import { ZodError } from 'zod'
 
 export async function POST(req: Request) {
   try {
@@ -10,7 +13,7 @@ export async function POST(req: Request) {
     const { name, email, password, repeatPassword } = registerSchema.parse(body)
 
     if (password !== repeatPassword) {
-      throw new Error('As senhas não correspondem')
+      throw new InvalidCredential()
     }
 
     const user = await prisma.user.findUnique({
@@ -20,7 +23,7 @@ export async function POST(req: Request) {
     })
 
     if (user) {
-      throw new Error('Credenciais inválidas')
+      throw new InvalidCredential()
     }
 
     const hashedPassword = await hash(password, 10)
@@ -39,7 +42,33 @@ export async function POST(req: Request) {
       { status: 201 },
     )
   } catch (error) {
-    console.log(error)
-    return NextResponse.json({ error }, { status: 409 })
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        {
+          errors: error.errors,
+        },
+        { status: 400 },
+      )
+    }
+
+    if (error instanceof PasswordNotMatched) {
+      return NextResponse.json(
+        {
+          error: error.message,
+        },
+        { status: 400 },
+      )
+    }
+
+    if (error instanceof InvalidCredential) {
+      return NextResponse.json(
+        {
+          error: error.message,
+        },
+        { status: 400 },
+      )
+    }
+
+    return NextResponse.json({ message: 'Erro desconhecido' }, { status: 500 })
   }
 }

@@ -3,6 +3,7 @@ import { compare } from 'bcrypt'
 import { prisma } from '@/lib/prisma'
 import jwt from 'jsonwebtoken'
 import { NextResponse } from 'next/server'
+import { ZodError } from 'zod'
 
 export async function POST(req: Request) {
   try {
@@ -38,7 +39,19 @@ export async function POST(req: Request) {
     )
 
     return NextResponse.json(acessToken, { status: 200 })
-  } catch (Error) {
-    return NextResponse.json({ Error }, { status: 401 })
+  } catch (error) {
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        {
+          errors: error.errors,
+        },
+        { status: 400 },
+      )
+    }
+
+    return NextResponse.json(
+      { error: 'Credenciais inválidas' },
+      { status: 500 },
+    )
   }
 }

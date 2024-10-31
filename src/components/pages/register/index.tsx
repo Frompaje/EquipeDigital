@@ -6,17 +6,27 @@ import { RegisterSchema, registerSchema } from '@/types/register'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 
 export const RegisterForm = () => {
+  const redirect = useNavigate()
+
   const { mutate, isPending } = useMutation({
     mutationFn: RegisterService.register,
+    onSuccess: async () => {
+      toast.success('Usuário criado com sucesso!')
+      setTimeout(() => redirect('/'), 200)
+    },
+    onError: () => {
+      toast.error('Credenciais inválidas')
+    },
   })
 
   const {
     register,
     handleSubmit,
-    formState: { isValid },
+    formState: { errors, isValid },
   } = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
   })
@@ -24,7 +34,7 @@ export const RegisterForm = () => {
   function handleRegisterForm(data: RegisterSchema) {
     mutate(data)
   }
-
+  console.log(errors)
   return (
     <div className="flex flex-col w-full md:w-2/4 h-full justify-center">
       <form
@@ -80,14 +90,13 @@ export const RegisterForm = () => {
           </div>
 
           <Button type="submit" disabled={isPending || !isValid}>
-            Inscrever-se
-            {isPending && <LoadingSpin />}
+            {isPending ? <LoadingSpin /> : 'Inscrever-se'}
           </Button>
         </div>
       </form>
       <div className="w-full flex flex-col items-center justify-center p-1 gap-2 mt-2">
         <Link
-          to={'/ '}
+          to={'/'}
           className="text-purple-900 text-center hover:text-purple-950"
         >
           Voltar ao Login
