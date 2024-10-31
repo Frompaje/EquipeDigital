@@ -22,39 +22,39 @@ export const LoginForm = () => {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(handleLoginForm)}
-      className="w-2/5 flex justify-center items-center"
-    >
-      <div className="w-9/12 flex flex-col gap-4">
-        <div>
-          <label className="text-purple-800" htmlFor="email">
-            Email
-          </label>
-          <Input
-            type="password"
-            id="password"
-            placeholder="example@gmail.com"
-            {...register('password')}
-          />
-        </div>
-        <div>
-          <label className="text-purple-800" htmlFor="password">
-            Password
-          </label>
-          <Input
-            type="password"
-            id="password"
-            placeholder="*******"
-            {...register('password')}
-          />
-        </div>
+      <form
+        onSubmit={handleSubmit(handleLoginForm)}
+        className="w-2/5 flex justify-center items-center"
+      >
+        <div className="w-9/12 flex flex-col gap-4">
+          <div>
+            <label className="text-purple-800" htmlFor="email">
+              Email
+            </label>
+            <Input
+              type="password"
+              id="password"
+              placeholder="example@gmail.com"
+              {...register('password')}
+            />
+          </div>
+          <div>
+            <label className="text-purple-800" htmlFor="password">
+              Password
+            </label>
+            <Input
+              type="password"
+              id="password"
+              placeholder="*******"
+              {...register('password')}
+            />
+          </div>
 
-        <Button type="submit" disabled={isPending || !isValid}>
-          Entrar
-          {isPending && <LoadingSpin />}
-        </Button>
-      </div>
-    </form>
+          <Button type="submit" disabled={isPending || !isValid}>
+            Entrar
+            {isPending && <LoadingSpin />}
+          </Button>
+        </div>
+      </form>
   )
 }
