@@ -26,12 +26,12 @@ export const LoginForm = () => {
   }
 
   return (
-    <div className="flex flex-col w-2/4 h-full justify-center">
+    <div className="flex flex-col w-full md:w-2/4 h-full justify-center">
       <form
         onSubmit={handleSubmit(handleLoginForm)}
         className="flex justify-center "
       >
-        <div className="w-9/12 flex flex-col gap-4">
+        <div className="w-full p-4 md:w-9/12 flex flex-col gap-4">
           <div>
             <label className="text-purple-800" htmlFor="email">
               Email
@@ -39,7 +39,7 @@ export const LoginForm = () => {
             <Input
               type="email"
               id="email"
-              placeholder="example@gmail.com"
+              placeholder="exemplo@gmail.com"
               {...register('email')}
             />
           </div>
@@ -61,7 +61,7 @@ export const LoginForm = () => {
           </Button>
         </div>
       </form>
-      <div className="w-full flex justify-center p-1 gap-2 mt-2">
+      <div className="w-full flex flex-col items-center justify-center p-1 gap-2 mt-2">
         <p className="mb-1">Novo por aqui? Crie sua conta agora!</p>
         <Link
           to={'/signUp '}

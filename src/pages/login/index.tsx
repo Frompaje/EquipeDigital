@@ -3,7 +3,7 @@ import { LoginForm } from '@/components/pages/login'
 export const Login = () => {
   return (
     <main className="flex h-screen">
-      <div className="ml-1 mt-1 mb-1 bg-purple-500 text-white rounded-lg w-1/2 flex flex-col justify-center ">
+      <div className="hidden ml-1 mt-1 mb-1 bg-purple-500 text-white rounded-lg w-1/2 md:flex flex-col justify-center ">
         <h1 className="text-3xl font-semibold text-center">
           Bem-vindo de volta
         </h1>
