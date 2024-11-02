@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 import { MenuMobile } from './menuMobile'
 import { Input } from '../ui/input'
+
 const listNav = [
   {
     name: 'Conta',
-    href: '/account',
+    href: 'app/account',
   },
   {
     name: 'Sair',

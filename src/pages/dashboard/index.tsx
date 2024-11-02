@@ -29,7 +29,7 @@ const listNav = [
   },
 ]
 
-export const Dashboard = () => {
+const Dashboard = () => {
   const { user } = useAuth()
 
   const isAdmin = user?.role === 'Admin'
@@ -105,3 +105,5 @@ export const Dashboard = () => {
     </main>
   )
 }
+
+export default Dashboard

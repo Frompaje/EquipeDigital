@@ -1,7 +1,7 @@
 import { InvalidCredential } from '@/error/InvalidCredential'
 import { PasswordNotMatched } from '@/error/passwordNotMatched'
 import { prisma } from '@/lib/prisma'
-import { registerSchema } from '@/types/register'
+import { registerSchema } from '@/types/schema/register'
 import { hash } from 'bcrypt'
 import { NextResponse } from 'next/server'
 import { ZodError } from 'zod'

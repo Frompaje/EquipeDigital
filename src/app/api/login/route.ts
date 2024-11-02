@@ -1,4 +1,4 @@
-import { loginSchema } from '@/types/login'
+import { loginSchema } from '@/types/schema/login'
 import { compare } from 'bcrypt'
 import { prisma } from '@/lib/prisma'
 import jwt from 'jsonwebtoken'

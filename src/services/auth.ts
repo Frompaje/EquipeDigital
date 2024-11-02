@@ -1,5 +1,5 @@
 import { API } from '@/lib/axios'
-import { LoginSchema } from '@/types/login'
+import { LoginSchema } from '@/types/schema/login'
 
 export class AuthService {
   static async auth(data: LoginSchema) {

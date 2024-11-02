@@ -1,8 +1,8 @@
-import { LoadingSpin } from '@/components/loadingSpin'
+import { LoadingSpin } from '@/components/common/loadingSpin'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { RegisterService } from '@/services/register'
-import { RegisterSchema, registerSchema } from '@/types/register'
+import { RegisterSchema, registerSchema } from '@/types/schema/register'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
@@ -26,7 +26,7 @@ export const RegisterForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { isValid },
   } = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
   })
@@ -34,7 +34,7 @@ export const RegisterForm = () => {
   function handleRegisterForm(data: RegisterSchema) {
     mutate(data)
   }
-  console.log(errors)
+
   return (
     <div className="flex flex-col w-full md:w-2/4 h-full justify-center">
       <form

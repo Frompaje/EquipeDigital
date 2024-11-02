@@ -1,5 +1,5 @@
 import { API } from '@/lib/axios'
-import { RegisterSchema } from '@/types/register'
+import { RegisterSchema } from '@/types/schema/register'
 
 export class RegisterService {
   static async register(data: RegisterSchema) {
