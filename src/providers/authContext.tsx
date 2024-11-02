@@ -23,6 +23,9 @@ type TAuthContext = {
   userToken: string | undefined | null
   handleLogin: (data: string) => Promise<void>
   handleLogout: () => void
+  setUser: (
+    user: { id: string; email: string; name: string; role: string } | null,
+  ) => void
 }
 
 const AuthContext = createContext({} as TAuthContext)
@@ -96,8 +99,9 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       userToken,
       handleLogin,
       handleLogout,
+      setUser,
     }),
-    [handleLogin, handleLogout, user, userToken],
+    [handleLogin, handleLogout, user, setUser, userToken],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

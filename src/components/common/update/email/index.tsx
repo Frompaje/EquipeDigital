@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useAuth } from '@/providers/authContext'
 import { UpdateUserService } from '@/services/updateUser'
-import { updateEmailSchema, UpdateEmailSchema } from '@/types/schema/update'
+import { updateEmailResolve, UpdateEmailResolve } from '@/types/schema/update'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
@@ -16,14 +16,14 @@ export const UpdateUserEmailForm = () => {
   const { user } = useAuth()
 
   const { mutate, isPending } = useMutation({
-    mutationFn: async (data: { email: string }) =>
-      await UpdateUserService.updateUser(user?.id, data.email),
+    mutationFn: async (data: { newEmail: string; oldEmail?: string }) =>
+      await UpdateUserService.email(user?.id, data.newEmail, user?.email),
     onSuccess: async () => {
       toast.success('Email atualizado com sucesso!')
-      setTimeout(() => navigate('/app/account'), 400)
+      setTimeout(() => navigate('/account'), 400)
     },
     onError: () => {
-      toast.error('Credenciais inválidas')
+      toast.error('Credenciais inválidas. Evite usar seu Email antigo')
     },
   })
 
@@ -31,30 +31,41 @@ export const UpdateUserEmailForm = () => {
     register,
     handleSubmit,
     formState: { isValid },
-  } = useForm<UpdateEmailSchema>({
-    resolver: zodResolver(updateEmailSchema),
+  } = useForm<UpdateEmailResolve>({
+    resolver: zodResolver(updateEmailResolve),
+    mode: 'all',
   })
 
-  function handleUpdateUserForm(data: UpdateEmailSchema) {
-    mutate(data)
+  function handleUpdateEmailForm(newEmail: string) {
+    mutate({
+      newEmail,
+      oldEmail: user?.email,
+    })
   }
 
   return (
     <div className="flex flex-col w-full md:w-2/4 h-full justify-center">
       <form
-        onSubmit={handleSubmit(handleUpdateUserForm)}
+        onSubmit={handleSubmit((data) => handleUpdateEmailForm(data.newEmail))}
         className="flex justify-center "
       >
-        <div className="w-full p-4 md:w-9/12 flex flex-col gap-4">
+        <div className="w-full p-4 md:w-9/12 flex flex-col gap-2">
+          <div className="flex flex-col gap-2">
+            <span className="text-purple-950">Email Antigo</span>
+            <span className="border p-1 w-full rounded cursor-pointer  text-gray-400">
+              {user && user.email}
+            </span>
+          </div>
+
           <div>
             <label className="text-purple-800" htmlFor="email">
-              Email
+              Novo Email
             </label>
             <Input
               type="email"
-              id="email"
+              id="newEmail"
               placeholder="exemplo@gmail.com"
-              {...register('email')}
+              {...register('newEmail')}
             />
           </div>
 

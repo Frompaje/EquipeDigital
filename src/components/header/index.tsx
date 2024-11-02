@@ -5,7 +5,7 @@ import { Input } from '../ui/input'
 const listNav = [
   {
     name: 'Conta',
-    href: 'app/account',
+    href: '/account',
   },
   {
     name: 'Sair',

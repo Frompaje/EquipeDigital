@@ -2,21 +2,19 @@ import { z } from 'zod'
 
 export const updateEmailSchema = z.object({
   id: z.string(),
-  email: z.string().email().min(1),
+  newEmail: z.string().email().min(1),
+  oldEmail: z.string().email().min(1),
 })
 
-export const updateNameSchema = z.object({
-  id: z.string(),
-  email: z.string().email().min(1),
-  name: z.string().min(3).max(30),
+export const updateEmailData = z.object({
+  newEmail: z.string().email().min(1),
+  oldEmail: z.string().email().min(1),
 })
 
-export const updatePassowrdSchema = z.object({
-  id: z.string(),
-  password: z.string().min(6).max(255),
-  repeatPassword: z.string().min(6).max(255),
+export const updateEmailResolve = z.object({
+  newEmail: z.string().email().min(1),
 })
 
 export type UpdateEmailSchema = z.infer<typeof updateEmailSchema>
-export type UpdatePassowrdSchema = z.infer<typeof updatePassowrdSchema>
-export type UpdateNameSchema = z.infer<typeof updateNameSchema>
+export type UpdateEmailData = z.infer<typeof updateEmailData>
+export type UpdateEmailResolve = z.infer<typeof updateEmailResolve>

@@ -1,11 +1,12 @@
 import { API } from '@/lib/axios'
 
 export class UpdateUserService {
-  static async updateUser(id?: string, email?: string, name?: string) {
-    await API.post('/updateUser', {
+  static async email(id?: string, newEmail?: string, oldEmail?: string) {
+    console.log(newEmail)
+    await API.post('/updateEmail', {
       id,
-      email,
-      name,
+      newEmail,
+      oldEmail,
     })
   }
 }

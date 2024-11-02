@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const listNav = [
   {
     name: 'Conta',
-    href: 'app/account',
+    href: '/account',
   },
   {
     name: 'Sair',
@@ -38,7 +38,7 @@ export const MenuMobile = () => {
           {listNav.map((value) => (
             <li
               key={value.name}
-              className='p-1 w-full rounded cursor-pointer hover:bg-purple-950 hover:text-white"'
+              className="p-1 w-full rounded cursor-pointer hover:bg-purple-950 hover:text-white"
             >
               <Link to={value.href}>
                 <div className="w-full">{value.name} </div>
