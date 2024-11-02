@@ -1,3 +1,4 @@
+import { Header } from '@/components/header'
 import { ReactNode } from 'react'
 import { Outlet } from 'react-router-dom'
 
@@ -6,7 +7,12 @@ interface AuthLayoutProps {
 }
 
 const AuthLayout = ({ children }: AuthLayoutProps) => {
-  return <>{children || <Outlet />}</>
+  return (
+    <>
+      <Header />
+      {children || <Outlet />}
+    </>
+  )
 }
 
 export default AuthLayout

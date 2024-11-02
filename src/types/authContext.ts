@@ -8,7 +8,3 @@ export type TokenUser = {
     exp: number
   }
 }
-
-export type TokenResetPassword = {
-  email: string
-}

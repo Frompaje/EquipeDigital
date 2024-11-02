@@ -55,7 +55,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       setUserToken(data)
       cookies.set('_user-auth', data, { expires: 7 })
       API.defaults.headers.authorization = `Bearer ${data}`
-      navigate('/app')
+      navigate('app/')
     },
     [setUserToken, navigate],
   )

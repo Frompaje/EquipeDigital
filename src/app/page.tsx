@@ -17,7 +17,7 @@ export default function Home() {
               <Route path="/signUp" element={<Register />} />
 
               <Route path="/app" element={<AuthLayout />}>
-                <Route path="app/" element={<Dashboard />} />
+                <Route path="" element={<Dashboard />} />
               </Route>
             </Routes>
           </AuthContextProvider>
