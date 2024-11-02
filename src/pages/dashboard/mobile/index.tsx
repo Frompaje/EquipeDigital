@@ -21,7 +21,7 @@ export const DashBoardMobile = ({
   handleSwithMenu,
 }: Props) => {
   return (
-    <div className="flex flex-col p-4 bg-gray-100 rounded max-h-96 md:hidden">
+    <div className="flex flex-col p-4 bg-gray-100 rounded max-h-56 lg:hidden">
       <h1 className="font-bold font-">Tabela dos Usuários </h1>
       {data &&
         data.map((value, index) => (

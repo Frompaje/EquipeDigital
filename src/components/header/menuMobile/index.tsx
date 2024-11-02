@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 
 const listNav = [
   {
-    name: 'Configuração',
-    href: '/config',
+    name: 'Conta',
+    href: '/account',
   },
   {
     name: 'Sair',

@@ -3,8 +3,8 @@ import { MenuMobile } from './menuMobile'
 import { Input } from '../ui/input'
 const listNav = [
   {
-    name: 'Configuração',
-    href: '/config',
+    name: 'Conta',
+    href: '/account',
   },
   {
     name: 'Sair',
