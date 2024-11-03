@@ -6,15 +6,9 @@ export const updateEmailSchema = z.object({
   oldEmail: z.string().email().min(1),
 })
 
-export const updateEmailData = z.object({
-  newEmail: z.string().email().min(1),
-  oldEmail: z.string().email().min(1),
-})
-
 export const updateEmailResolve = z.object({
   newEmail: z.string().email().min(1),
 })
 
 export type UpdateEmailSchema = z.infer<typeof updateEmailSchema>
-export type UpdateEmailData = z.infer<typeof updateEmailData>
 export type UpdateEmailResolve = z.infer<typeof updateEmailResolve>

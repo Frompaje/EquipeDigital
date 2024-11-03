@@ -3,27 +3,34 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useAuth } from '@/providers/authContext'
 import { UpdateUserService } from '@/services/updateUser'
-import { UpdateEmailResolve, updateEmailResolve } from '@/types/update/email'
+import {
+  updatePasswordResolve,
+  UpdatePasswordResolve,
+} from '@/types/update/password'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
-export const UpdateUserEmailForm = () => {
+export const UpdateUserPasswordForm = () => {
   const navigate = useNavigate()
 
   const { user } = useAuth()
 
   const { mutate, isPending } = useMutation({
-    mutationFn: async (data: { newEmail: string; oldEmail?: string }) =>
-      await UpdateUserService.email(user?.id, data.newEmail, user?.email),
+    mutationFn: async (data: { password: string; repeatPassword?: string }) =>
+      await UpdateUserService.password(
+        user?.id,
+        data.password,
+        data.repeatPassword,
+      ),
     onSuccess: async () => {
-      toast.success('Email atualizado com sucesso!')
+      toast.success('Senha atualizado com sucesso!')
       setTimeout(() => navigate('/account'), 400)
     },
     onError: () => {
-      toast.error('Credenciais inválidas. Evite usar seu Email antigo')
+      toast.error('Credenciais inválidas. Evite usar sua senha antiga')
     },
   })
 
@@ -31,41 +38,43 @@ export const UpdateUserEmailForm = () => {
     register,
     handleSubmit,
     formState: { isValid },
-  } = useForm<UpdateEmailResolve>({
-    resolver: zodResolver(updateEmailResolve),
-    mode: 'all',
+  } = useForm<UpdatePasswordResolve>({
+    resolver: zodResolver(updatePasswordResolve),
+    mode: 'onChange',
   })
 
-  function handleUpdateEmailForm(newEmail: string) {
-    mutate({
-      newEmail,
-      oldEmail: user?.email,
-    })
+  function handleUpdatePasswordForm(data: UpdatePasswordResolve) {
+    mutate(data)
   }
 
   return (
     <div className="flex flex-col w-full h-full justify-center">
       <form
-        onSubmit={handleSubmit((data) => handleUpdateEmailForm(data.newEmail))}
+        onSubmit={handleSubmit((data) => handleUpdatePasswordForm(data))}
         className="flex justify-center "
       >
         <div className="w-full p-4  flex flex-col gap-2">
-          <div className="flex flex-col gap-2">
-            <span className="text-purple-950">Email Antigo</span>
-            <span className="border p-1 w-full rounded cursor-pointer  text-gray-400">
-              {user && user.email}
-            </span>
+          <div>
+            <label className="text-purple-800" htmlFor="email">
+              Nova senha
+            </label>
+            <Input
+              type="password"
+              id="repeatPassword"
+              placeholder="*********"
+              {...register('password')}
+            />
           </div>
 
           <div>
             <label className="text-purple-800" htmlFor="email">
-              Novo Email
+              Digite novamente a senha
             </label>
             <Input
-              type="email"
-              id="newEmail"
-              placeholder="exemplo@gmail.com"
-              {...register('newEmail')}
+              type="password"
+              id="repeatPassword"
+              placeholder="*********"
+              {...register('repeatPassword')}
             />
           </div>
 

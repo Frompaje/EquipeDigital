@@ -2,6 +2,7 @@
 import AuthLayout from '@/layouts/auth-layout'
 import Account from '@/pages/account/'
 import { UpdateUserEmail } from '@/pages/account/email'
+import { UpdateUserPassword } from '@/pages/account/password'
 import Dashboard from '@/pages/dashboard'
 import Login from '@/pages/login'
 import Register from '@/pages/register'
@@ -19,9 +20,10 @@ export default function Home() {
               <Route path="/signUp" element={<Register />} />
 
               <Route element={<AuthLayout />}>
-                <Route index path="app/" element={<Dashboard />} />
-                <Route path="account" element={<Account />} />
-                <Route path="email" element={<UpdateUserEmail />} />
+                <Route index path="/app" element={<Dashboard />} />
+                <Route path="/account" element={<Account />} />
+                <Route path="/email" element={<UpdateUserEmail />} />
+                <Route path="/password" element={<UpdateUserPassword />} />
               </Route>
             </Routes>
           </AuthContextProvider>
