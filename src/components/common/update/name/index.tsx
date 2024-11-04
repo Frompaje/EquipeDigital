@@ -3,27 +3,29 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useAuth } from '@/providers/authContext'
 import { UpdateUserService } from '@/services/updateUser'
-import { UpdateEmailResolve, updateEmailResolve } from '@/types/update/email'
+import { updateNameResolve, UpdateNameResolve } from '@/types/update/name'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
-export const UpdateUserEmailForm = () => {
+export const UpdateUserNameForm = () => {
   const navigate = useNavigate()
 
   const { user } = useAuth()
 
   const { mutate, isPending } = useMutation({
-    mutationFn: async (data: { newEmail: string; oldEmail?: string }) =>
-      await UpdateUserService.email(user?.id, data.newEmail, user?.email),
+    mutationFn: async (data: { name: string }) =>
+      await UpdateUserService.changeName(user?.id, data.name),
     onSuccess: async () => {
-      toast.success('Email atualizado com sucesso!')
+      toast.success('Nome atualizado com sucesso!')
       setTimeout(() => navigate('/account'), 400)
     },
     onError: () => {
-      toast.error('Credenciais inválidas. Evite usar seu Email antigo')
+      toast.error(
+        'Eita, alguma coisa aconteceu!!! Tente novamente mais tarde.  ',
+      )
     },
   })
 
@@ -31,41 +33,40 @@ export const UpdateUserEmailForm = () => {
     register,
     handleSubmit,
     formState: { isValid },
-  } = useForm<UpdateEmailResolve>({
-    resolver: zodResolver(updateEmailResolve),
+  } = useForm<UpdateNameResolve>({
+    resolver: zodResolver(updateNameResolve),
     mode: 'all',
   })
 
-  function handleUpdateEmailForm(newEmail: string) {
+  function handleUpdateEmailForm(name: string) {
     mutate({
-      newEmail,
-      oldEmail: user?.email,
+      name,
     })
   }
 
   return (
     <div className="flex flex-col w-full h-full justify-center">
       <form
-        onSubmit={handleSubmit((data) => handleUpdateEmailForm(data.newEmail))}
+        onSubmit={handleSubmit((data) => handleUpdateEmailForm(data.name))}
         className="flex justify-center "
       >
         <div className="w-full p-4  flex flex-col gap-2">
           <div className="flex flex-col gap-2">
-            <span className="text-purple-950">Email Atual</span>
+            <span className="text-purple-950">Nome Atual</span>
             <span className="border p-1 w-full rounded cursor-pointer  text-gray-400">
-              {user && user.email}
+              {user && user.name}
             </span>
           </div>
 
           <div>
-            <label className="text-purple-800" htmlFor="email">
-              Novo Email
+            <label className="text-purple-800" htmlFor="name">
+              Digite o novo nome
             </label>
             <Input
-              type="email"
-              id="newEmail"
-              placeholder="exemplo@gmail.com"
-              {...register('newEmail')}
+              type="text"
+              id="name"
+              placeholder="Yan Edwards "
+              {...register('name')}
             />
           </div>
 

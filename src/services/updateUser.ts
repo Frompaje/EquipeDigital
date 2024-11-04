@@ -20,4 +20,11 @@ export class UpdateUserService {
       repeatPassword,
     })
   }
+
+  static async changeName(id?: string, name?: string) {
+    await API.patch('/updateName', {
+      id,
+      name,
+    })
+  }
 }
