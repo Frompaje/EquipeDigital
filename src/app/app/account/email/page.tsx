@@ -1,6 +1,6 @@
 import { UpdateUserEmailForm } from '@/components/common/update/email'
 
-export const UpdateUserEmail = () => {
+const UpdateUserEmail = () => {
   return (
     <div>
       <h1 className="text-xl flex justify-center">Atualize seu Email</h1>
@@ -8,3 +8,5 @@ export const UpdateUserEmail = () => {
     </div>
   )
 }
+
+export default UpdateUserEmail

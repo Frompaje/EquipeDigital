@@ -1,6 +1,8 @@
+'use client'
+
 import { useAuth } from '@/providers/authContext'
+import { DashBoardMobile } from './mobile/page'
 import { useState } from 'react'
-import { DashBoardMobile } from './mobile'
 
 const listNav = [
   {
@@ -79,22 +81,22 @@ const Dashboard = () => {
                         : 'grid grid-cols-2 gap-4 p-4 rounded-2xl text-black bg-white mb-1'
                     }
                   >
-                    <div className="flex  justify-center border border-1 rounded border-purple-900">
+                    <li className="flex  justify-center border border-1 rounded border-purple-900">
                       <span>{value.name}</span>
-                    </div>
-                    <div className="flex  justify-center border border-1 rounded border-purple-900">
+                    </li>
+                    <li className="flex  justify-center border border-1 rounded border-purple-900">
                       <span>{value.email}</span>
-                    </div>
+                    </li>
 
                     {isAdmin && (
-                      <div className="flex justify-center border border-1 rounded border-purple-900">
+                      <li className="flex justify-center border border-1 rounded border-purple-900">
                         <span>{value.acoes}</span>
-                      </div>
+                      </li>
                     )}
                     {isAdmin && (
-                      <div className="flex justify-center border  border-1 rounded border-purple-900">
+                      <li className="flex justify-center border  border-1 rounded border-purple-900">
                         <span className="text-center">{value.role}</span>
-                      </div>
+                      </li>
                     )}
                   </ul>
                 </div>

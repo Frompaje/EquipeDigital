@@ -1,13 +1,14 @@
 import { Header } from '@/components/header'
-import { Outlet } from 'react-router-dom'
 
-const AuthLayout = () => {
+export default function AppLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
   return (
-    <>
+    <section>
       <Header />
-      <Outlet />
-    </>
+      {children}
+    </section>
   )
 }
-
-export default AuthLayout

@@ -1,3 +1,4 @@
+'use client'
 import { LoadingSpin } from '@/components/common/loadingSpin'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -9,13 +10,11 @@ import {
 } from '@/types/update/password'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
+import { redirect } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 export const UpdateUserPasswordForm = () => {
-  const navigate = useNavigate()
-
   const { user } = useAuth()
 
   const { mutate, isPending } = useMutation({
@@ -27,7 +26,7 @@ export const UpdateUserPasswordForm = () => {
       ),
     onSuccess: async () => {
       toast.success('Senha atualizado com sucesso!')
-      setTimeout(() => navigate('/account'), 400)
+      setTimeout(() => redirect('/app/account'), 400)
     },
     onError: () => {
       toast.error('Credenciais inválidas. Evite usar sua senha antiga')

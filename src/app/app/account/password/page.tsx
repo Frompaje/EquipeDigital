@@ -1,6 +1,6 @@
 import { UpdateUserPasswordForm } from '@/components/common/update/password'
 
-export const UpdateUserPassword = () => {
+const UpdateUserPassword = () => {
   return (
     <div>
       <h1 className="text-xl flex justify-center">Atualize seu Senha</h1>
@@ -8,3 +8,5 @@ export const UpdateUserPassword = () => {
     </div>
   )
 }
+
+export default UpdateUserPassword

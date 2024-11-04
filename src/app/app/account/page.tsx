@@ -1,17 +1,17 @@
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 const listNav = [
   {
     name: 'Email',
-    href: '/email',
+    href: 'account/email',
   },
   {
     name: 'Senha',
-    href: '/password',
+    href: 'account/password',
   },
   {
     name: 'Nome',
-    href: '/name',
+    href: 'account/name',
   },
 ]
 
@@ -45,7 +45,7 @@ const Account = () => {
             className="p-1 w-full rounded cursor-pointer bg-purple-950 hover:bg-purple-900 text-white"
             key={value.name}
           >
-            <Link to={value.href}>
+            <Link href={value.href}>
               <div className="w-full">{value.name} </div>
             </Link>
           </li>

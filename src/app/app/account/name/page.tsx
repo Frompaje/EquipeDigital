@@ -1,6 +1,6 @@
 import { UpdateUserNameForm } from '@/components/common/update/name'
 
-export const UpdateUserName = () => {
+const UpdateUserName = () => {
   return (
     <div>
       <h1 className="text-xl flex justify-center">Atualize seu Nome</h1>
@@ -8,3 +8,5 @@ export const UpdateUserName = () => {
     </div>
   )
 }
+
+export default UpdateUserName

@@ -1,3 +1,5 @@
+'use client'
+
 import cookies from 'js-cookie'
 import {
   createContext,
@@ -8,7 +10,8 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { useNavigate } from 'react-router-dom'
+
+import { useRouter } from 'next/navigation'
 
 import { decodeJWT } from '@/helper/decodeJWT'
 import { API } from '@/lib/axios'
@@ -32,8 +35,10 @@ const AuthContext = createContext({} as TAuthContext)
 
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [userToken, setUserToken] = useState<string | undefined | null>(() => {
-    return cookies.get('_helper-auth')
+    return cookies.get('_user-auth')
   })
+
+  const route = useRouter()
 
   const [user, setUser] = useState(() => {
     if (userToken) {
@@ -50,24 +55,22 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     return null
   })
 
-  const navigate = useNavigate()
-
   const handleLogin = useCallback(
     async (data: string) => {
-      console.log(data)
       setUserToken(data)
       cookies.set('_user-auth', data, { expires: 7 })
       API.defaults.headers.authorization = `Bearer ${data}`
-      navigate('app/')
+      route.push('app/')
     },
-    [setUserToken, navigate],
+    [setUserToken, route],
   )
+
   const handleLogout = useCallback(() => {
     setUserToken(null)
     setUser(null)
     cookies.remove('_user-auth')
-    navigate('/', { replace: true })
-  }, [setUserToken, setUser, navigate])
+    route.replace('/')
+  }, [setUserToken, route])
 
   useEffect(() => {
     if (userToken) {
@@ -89,9 +92,9 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       !cookies.get('_user-auth') &&
       !window.location.pathname.includes('signup')
     ) {
-      navigate('/')
+      route.push('/')
     }
-  }, [navigate])
+  })
 
   const value = useMemo(
     () => ({

@@ -6,17 +6,16 @@ import { RegisterSchema, registerSchema } from '@/types/schema/register'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
+import { redirect } from 'next/navigation'
+import Link from 'next/link'
 
 export const RegisterForm = () => {
-  const navigate = useNavigate()
-
   const { mutate, isPending } = useMutation({
     mutationFn: RegisterService.register,
     onSuccess: async () => {
       toast.success('Usuário criado com sucesso!')
-      setTimeout(() => navigate('/'), 400)
+      setTimeout(() => redirect('/'), 400)
     },
     onError: () => {
       toast.error('Credenciais inválidas')
@@ -96,7 +95,7 @@ export const RegisterForm = () => {
       </form>
       <div className="w-full flex flex-col items-center justify-center p-1 gap-2 mt-2">
         <Link
-          to={'/'}
+          href={'/'}
           className="text-purple-900 text-center hover:text-purple-950"
         >
           Voltar ao Login

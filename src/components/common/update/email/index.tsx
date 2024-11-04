@@ -1,3 +1,4 @@
+'use client'
 import { LoadingSpin } from '@/components/common/loadingSpin'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -6,13 +7,11 @@ import { UpdateUserService } from '@/services/updateUser'
 import { UpdateEmailResolve, updateEmailResolve } from '@/types/update/email'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
+import { redirect } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 export const UpdateUserEmailForm = () => {
-  const navigate = useNavigate()
-
   const { user } = useAuth()
 
   const { mutate, isPending } = useMutation({
@@ -20,7 +19,7 @@ export const UpdateUserEmailForm = () => {
       await UpdateUserService.email(user?.id, data.newEmail, user?.email),
     onSuccess: async () => {
       toast.success('Email atualizado com sucesso!')
-      setTimeout(() => navigate('/account'), 400)
+      setTimeout(() => redirect('/app/account'), 400)
     },
     onError: () => {
       toast.error('Credenciais inválidas. Evite usar seu Email antigo')

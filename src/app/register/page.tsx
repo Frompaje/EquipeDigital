@@ -1,3 +1,5 @@
+'use client'
+
 import { RegisterForm } from '@/components/pages/register'
 
 export const Register = () => {

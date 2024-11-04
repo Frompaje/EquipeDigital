@@ -1,3 +1,4 @@
+'use client'
 import { LoadingSpin } from '@/components/common/loadingSpin'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -6,13 +7,11 @@ import { UpdateUserService } from '@/services/updateUser'
 import { updateNameResolve, UpdateNameResolve } from '@/types/update/name'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
+import { redirect } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 export const UpdateUserNameForm = () => {
-  const navigate = useNavigate()
-
   const { user } = useAuth()
 
   const { mutate, isPending } = useMutation({
@@ -20,7 +19,7 @@ export const UpdateUserNameForm = () => {
       await UpdateUserService.changeName(user?.id, data.name),
     onSuccess: async () => {
       toast.success('Nome atualizado com sucesso!')
-      setTimeout(() => navigate('/account'), 400)
+      setTimeout(() => redirect('/app/account'), 400)
     },
     onError: () => {
       toast.error(

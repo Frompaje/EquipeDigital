@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom'
+'use client'
+
 import { MenuMobile } from './menuMobile'
 import { Input } from '../ui/input'
+import Link from 'next/link'
 
 const listNav = [
   {
     name: 'Conta',
-    href: '/account',
+    href: '/app/account',
   },
   {
     name: 'Sair',
@@ -29,7 +31,7 @@ export const Header = () => {
               key={value.name}
               className="flex p-1 rounded cursor-pointer hover:bg-purple-700 hover:text-white"
             >
-              <Link to={value.href}>{value.name}</Link>
+              <Link href={value.href}>{value.name}</Link>
             </li>
           ))}
         </ul>

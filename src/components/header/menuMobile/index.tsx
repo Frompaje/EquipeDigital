@@ -1,11 +1,11 @@
 import { ChevronUp } from 'lucide-react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 const listNav = [
   {
     name: 'Conta',
-    href: '/account',
+    href: '/app/account',
   },
   {
     name: 'Sair',
@@ -40,7 +40,7 @@ export const MenuMobile = () => {
               key={value.name}
               className="p-1 w-full rounded cursor-pointer hover:bg-purple-950 hover:text-white"
             >
-              <Link to={value.href}>
+              <Link href={value.href}>
                 <div className="w-full">{value.name} </div>
               </Link>
             </li>

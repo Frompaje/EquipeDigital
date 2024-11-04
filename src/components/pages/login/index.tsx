@@ -6,8 +6,8 @@ import { LoadingSpin } from '@/components/common/loadingSpin'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
+import Link from 'next/link'
 import { useAuth } from '@/providers/authContext'
 
 export const LoginForm = () => {
@@ -16,11 +16,13 @@ export const LoginForm = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: AuthService.auth,
     onSuccess: async (data) => {
-      toast.success('Bem-vindo(a), Logado com sucesso!')
+      console.log('tokenResponse:' + data)
       await handleLogin(data)
+      toast.success('Bem-vindo(a), Logado com sucesso!')
     },
 
-    onError: async () => {
+    onError: async (error) => {
+      console.log(error)
       toast.error('Credenciais inválidas!')
     },
   })
@@ -75,7 +77,7 @@ export const LoginForm = () => {
       <div className="w-full flex flex-col items-center justify-center p-1 gap-2 mt-2">
         <p className="mb-1">Novo por aqui? Crie sua conta agora!</p>
         <Link
-          to={'/signUp '}
+          href={'/register'}
           className="text-purple-900 text-center hover:text-purple-950"
         >
           Registre-se
