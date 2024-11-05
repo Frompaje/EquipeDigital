@@ -1,6 +1,6 @@
 import { UserNotFound } from '@/error/userNotFound'
 import { prisma } from '@/lib/prisma'
-import { updateNameSchema } from '@/types/update/name'
+import { deleteUserSchema } from '@/types/delete/delete'
 import { NextResponse } from 'next/server'
 import { ZodError } from 'zod'
 
@@ -8,7 +8,7 @@ export async function DELETE(req: Request) {
   try {
     const body = await req.json()
 
-    const { id } = updateNameSchema.parse(body)
+    const { id } = deleteUserSchema.parse(body)
 
     const user = await prisma.user.findFirst({
       where: {
@@ -48,7 +48,7 @@ export async function DELETE(req: Request) {
         { status: 400 },
       )
     }
-
+    console.log(error)
     return NextResponse.json({ message: 'Erro desconhecido' }, { status: 500 })
   }
 }

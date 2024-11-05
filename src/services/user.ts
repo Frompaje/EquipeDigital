@@ -49,7 +49,7 @@ export class UserService {
   }
 
   static async deleteUser(id: string) {
-    await API.delete('/user', {
+    await API.delete('/deleteUser', {
       data: {
         id,
       },

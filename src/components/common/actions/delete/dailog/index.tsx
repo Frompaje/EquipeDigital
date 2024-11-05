@@ -1,121 +1,55 @@
 import { LoadingSpin } from '@/components/common/loadingSpin'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { UserService } from '@/services/user'
-import { updateInfoResolve, UpdateInfoResolve } from '@/types/update/info'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import { redirect } from 'next/navigation'
-import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 type Props = {
   id: string
   dialogRef: React.RefObject<HTMLDialogElement>
+  refetch: () => void
 }
 
-const DeleteDailog = ({ id, dialogRef }: Props) => {
-  const { mutate, isPending } = useMutation({
-    mutationFn: async (data: UpdateInfoResolve) =>
-      await UserService.updateAllInfo(id, data),
-    onSuccess: async () => {
-      toast.success('Atualizado com sucesso!')
-      setTimeout(() => redirect('/app/account'), 400)
+const DeleteDialog = ({ id, dialogRef, refetch }: Props) => {
+  const { mutate, reset, isPending } = useMutation({
+    mutationFn: async (id: string) => await UserService.deleteUser(id),
+    onSuccess: () => {
+      toast.success('Deletado com sucesso!')
+      closeDialog()
+      refetch()
+      reset()
     },
     onError: () => {
-      toast.error('Credenciais inválidas.')
+      toast.error('Ocorreu um erro ao deletar o usuário.')
     },
   })
 
-  const {
-    register,
-    handleSubmit,
-    formState: { isValid },
-  } = useForm<UpdateInfoResolve>({
-    resolver: zodResolver(updateInfoResolve),
-  })
-
-  function handleUpdateEmailForm(data: UpdateInfoResolve) {
-    mutate(data)
-  }
-
-  const closeDialog = () => {
+  function closeDialog() {
     dialogRef.current?.close()
   }
 
+  function handleDelete() {
+    mutate(id)
+  }
+
   return (
-    <>
-      <dialog
-        ref={dialogRef}
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-5 rounded-lg shadow-lg"
-      >
-        <h1 className="text-base text-purple-950 font-semibold md:text-lg ">
-          Atualização de Informações
-        </h1>
-        <div>
-          <p className="text-gray-500 text-wrap">
-            Você pode atualizar apenas as informações que deseja sem precisar
-            modificar tudo.
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit((data) => handleUpdateEmailForm(data))}>
-          <div className="w-full p-4  flex flex-col gap-2">
-            <div>
-              <label
-                className="text-purple-800 flex justify-start"
-                htmlFor="email"
-              >
-                Novo Email
-              </label>
-              <Input
-                type="email"
-                id="email"
-                placeholder="exemplo@gmail.com"
-                {...register('email')}
-              />
-            </div>
-
-            <div>
-              <label
-                className="text-purple-800 flex justify-start"
-                htmlFor="name"
-              >
-                Novo Name
-              </label>
-              <Input
-                type="text"
-                id="Name"
-                placeholder="Yan Edwards"
-                {...register('name')}
-              />
-            </div>
-            <div>
-              <label
-                className="text-purple-800 flex justify-start"
-                htmlFor="password"
-              >
-                Novo Email
-              </label>
-              <Input
-                type="password"
-                id="password"
-                placeholder="******"
-                {...register('password')}
-              />
-            </div>
-
-            <Button type="submit" disabled={isValid}>
-              {isPending ? <LoadingSpin /> : 'Enviar as atualizações'}
-            </Button>
-            <Button onClick={closeDialog}>
-              {isPending ? <LoadingSpin /> : 'Fechar'}
-            </Button>
-          </div>
-        </form>
-      </dialog>
-    </>
+    <dialog
+      ref={dialogRef}
+      className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-6 rounded-lg shadow-lg bg-white max-w-md"
+    >
+      <h1 className="text-lg text-purple-950 font-semibold mb-4">
+        Deseja deletar este usuário?
+      </h1>
+      <div className="flex justify-center gap-4">
+        <Button onClick={handleDelete} disabled={isPending}>
+          {isPending ? <LoadingSpin /> : 'Sim'}
+        </Button>
+        <Button onClick={closeDialog} variant="secondary" disabled={isPending}>
+          Não
+        </Button>
+      </div>
+    </dialog>
   )
 }
 
-export default DeleteDailog
+export default DeleteDialog

@@ -16,11 +16,13 @@ import {
 } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { UserService } from '@/services/user'
+import DeleteDialog from '@/components/common/actions/delete/dailog'
 
 const Dashboard = () => {
   const { user } = useAuth()
 
-  const dialogRef = useRef<HTMLDialogElement>(null)
+  const dialogRefUpdate = useRef<HTMLDialogElement>(null)
+  const dialogRefDelete = useRef<HTMLDialogElement>(null)
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['users'],
@@ -41,9 +43,14 @@ const Dashboard = () => {
     }))
   }
 
-  const handleDialogWithId = (value: User) => {
+  const handleDialogUpdateWithId = (value: User) => {
     setValorInputId(value.id)
-    dialogRef.current?.showModal()
+    dialogRefUpdate.current?.showModal()
+  }
+  const handleDialogDeleteWithId = (value: User) => {
+    setValorInputId(value.id)
+    dialogRefDelete.current?.showModal()
+    console.log()
   }
 
   return (
@@ -97,22 +104,29 @@ const Dashboard = () => {
                       <div className="flex justify-center gap-2 p-1 bg-purple-200">
                         <Button
                           className="h-8 w-8"
-                          onClick={() => handleDialogWithId}
+                          onClick={() => handleDialogUpdateWithId(user)}
                         >
                           <Pencil />
                         </Button>
+
                         <Button
                           className="h-8 w-8"
-                          onClick={() => handleDialogWithId}
+                          onClick={() => handleDialogDeleteWithId(user)}
                         >
                           <Eraser />
                         </Button>
                       </div>
 
+                      <DeleteDialog
+                        refetch={refetch}
+                        id={valorInputId}
+                        dialogRef={dialogRefDelete}
+                      />
+
                       <UpdateDailog
                         refetch={refetch}
                         id={valorInputId}
-                        dialogRef={dialogRef}
+                        dialogRef={dialogRefUpdate}
                       />
                     </li>
                   )}
