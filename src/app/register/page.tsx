@@ -2,7 +2,7 @@
 
 import { RegisterForm } from '@/components/pages/register'
 
-export const Register = () => {
+const Register = () => {
   return (
     <main className="flex h-screen">
       <div className="hidden ml-1 mt-1 mb-1 bg-purple-500 text-white rounded-lg w-1/2 md:flex flex-col justify-center ">

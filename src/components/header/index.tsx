@@ -1,6 +1,6 @@
 'use client'
 
-import { DoorOpen, House, SquareUserRound } from 'lucide-react'
+import { House, SquareUserRound } from 'lucide-react'
 import { MenuMobile } from './menuMobile'
 import Link from 'next/link'
 import { Button } from '../ui/button'

@@ -1,11 +1,26 @@
-version: "3"
-
 services:
-  api-digital-pg:
-    image: "bitnami/postgresql"
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile 
     ports:
-      - 5432:5432
+      - "3000:3000"
     environment:
-      - POSTGRESQL_USERNAME=docker
-      - POSTGRESQL_PASSWORD=docker
-      - POSTGRESQL_DATABASE=api-digital
+      DATABASE_URL: "postgresql://docker:docker@db:5432/api-digital"
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  db:
+    image: bitnami/postgresql
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: api-digital
+    volumes:
+      - db_data:/bitnami/postgresql
+
+volumes:
+  db_data:
