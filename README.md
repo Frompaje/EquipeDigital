@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Projeto de Cadastro de Usuários
 
-## Getting Started
+Este projeto é uma aplicação de cadastro de usuários, que permite criar, editar, listar e excluir usuários, além de definir o nível de permissão como **User** ou **Admin**. A aplicação foi construída utilizando React, TypeScript e Tanstack Query (React Query) para gerenciamento de dados.
 
-First, run the development server:
+## Funcionalidades
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Cadastro de Usuários**: Campos para `name`, `email`, `password` e `role` (com seleção entre User e Admin).
+- **Listagem de Usuários**: Exibe todos os usuários cadastrados em uma tabela.
+- **Edição de Usuário**: Permite editar informações de um usuário específico.
+- **Exclusão de Usuário**: Permite excluir um usuário específico com confirmação.
+- **Feedback de Interação**: Notificações de sucesso e erro, com a biblioteca [Sonner](https://sonner.dev/) para exibir toasts.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tecnologias Utilizadas
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **React** com TypeScript
+- **React Query** para gerenciamento de dados e cache
+- **Tailwind CSS** para estilização
+- **Zod** para validação de formulários
+- **Sonner** para notificações
+- **React Hook Form** para gerenciamento de formulários
+- **Lucide React** para ícones
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Instalação
 
-## Learn More
+Siga as etapas abaixo para configurar e executar o projeto localmente.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Clone o repositório:
+   ```bash
+   git clone git@github.com:Frompaje/EquipeDigital.git
+   ```
