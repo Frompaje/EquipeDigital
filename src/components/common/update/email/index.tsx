@@ -3,7 +3,7 @@ import { LoadingSpin } from '@/components/common/loadingSpin'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useAuth } from '@/providers/authContext'
-import { UpdateUserService } from '@/services/updateUser'
+import { UserService } from '@/services/user'
 import { UpdateEmailResolve, updateEmailResolve } from '@/types/update/email'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
@@ -16,7 +16,7 @@ export const UpdateUserEmailForm = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: { newEmail: string; oldEmail?: string }) =>
-      await UpdateUserService.email(user?.id, data.newEmail, user?.email),
+      await UserService.updateEmail(user?.id, data.newEmail, user?.email),
     onSuccess: async () => {
       toast.success('Email atualizado com sucesso!')
       setTimeout(() => redirect('/app/account'), 400)

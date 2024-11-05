@@ -1,7 +1,6 @@
 import { LoadingSpin } from '@/components/common/loadingSpin'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { RegisterService } from '@/services/register'
 import { RegisterSchema, registerSchema } from '@/types/schema/register'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
@@ -9,10 +8,11 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
+import { UserService } from '@/services/user'
 
 export const RegisterForm = () => {
   const { mutate, isPending } = useMutation({
-    mutationFn: RegisterService.register,
+    mutationFn: UserService.register,
     onSuccess: async () => {
       toast.success('Usuário criado com sucesso!')
       setTimeout(() => redirect('/'), 400)

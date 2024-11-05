@@ -1,4 +1,5 @@
-import DeleteDailog from '@/components/common/actions/delete/dailog'
+import UpdateDailog from '@/components/common/actions/update/dailog'
+import { LoadingSpin } from '@/components/common/loadingSpin'
 import { Button } from '@/components/ui/button'
 import { User } from '@/types/user'
 import { ChevronUp, Pencil } from 'lucide-react'
@@ -11,6 +12,7 @@ type Props = {
   dialogRef: React.RefObject<HTMLDialogElement>
   id: string
   openDialog: () => void
+  isLoading: boolean
 }
 export const DashBoardMobile = ({
   data,
@@ -20,12 +22,14 @@ export const DashBoardMobile = ({
   openDialog,
   id,
   dialogRef,
+  isLoading,
 }: Props) => {
   const isAdmin = user?.role === 'Admin'
 
   return (
     <div className="flex flex-col p-4 bg-gray-100 rounded max-h-56 lg:hidden">
       <h1 className="font-bold font-">Tabela dos Usuários </h1>
+      {isLoading && <LoadingSpin />}
       {data &&
         data.map((value, index) => (
           <div
@@ -68,7 +72,7 @@ export const DashBoardMobile = ({
                       <Button onClick={openDialog}>
                         <Pencil />
                       </Button>
-                      <DeleteDailog id={id} dialogRef={dialogRef} />
+                      <UpdateDailog id={id} dialogRef={dialogRef} />
                     </li>
                   )}
                   {isAdmin && (

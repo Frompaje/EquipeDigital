@@ -1,15 +1,15 @@
 'use client'
 
-import { useAuth } from '@/providers/authContext'
-import { DashBoardMobile } from './mobile/page'
-import { useRef, useState } from 'react'
-import { Button } from '@/components/ui/button'
-import DeleteDailog from '@/components/common/actions/delete/dailog'
-import { useQuery } from '@tanstack/react-query'
-import { UserService } from '@/services/listUsers'
+import UpdateDailog from '@/components/common/actions/update/dailog'
 import { LoadingSpin } from '@/components/common/loadingSpin'
+import { Button } from '@/components/ui/button'
+import { useAuth } from '@/providers/authContext'
 import { User } from '@/types/user'
+import { useQuery } from '@tanstack/react-query'
 import { Pencil } from 'lucide-react'
+import { useRef, useState } from 'react'
+import { DashBoardMobile } from './mobile/page'
+import { UserService } from '@/services/user'
 
 const Dashboard = () => {
   const { user } = useAuth()
@@ -17,7 +17,7 @@ const Dashboard = () => {
   const dialogRef = useRef<HTMLDialogElement>(null)
 
   const { data, isLoading } = useQuery({
-    queryKey: ['users'],
+    queryKey: ['users', user?.id],
     queryFn: () => UserService.listUser(),
     staleTime: 1000 * 60 * 5,
   })
@@ -49,6 +49,7 @@ const Dashboard = () => {
         dialogRef={dialogRef}
         id={valorInputId}
         openDialog={openDialog}
+        isLoading={isLoading}
       />
       <div>
         <div className="flex-col p-4 bg-gray-100 rounded  hidden lg:flex">
@@ -91,7 +92,7 @@ const Dashboard = () => {
                         <Button onClick={openDialog}>
                           <Pencil />
                         </Button>
-                        <DeleteDailog id={valorInputId} dialogRef={dialogRef} />
+                        <UpdateDailog id={valorInputId} dialogRef={dialogRef} />
                       </li>
                     )}
                     {isAdmin && (

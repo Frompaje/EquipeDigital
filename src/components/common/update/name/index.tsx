@@ -3,7 +3,7 @@ import { LoadingSpin } from '@/components/common/loadingSpin'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useAuth } from '@/providers/authContext'
-import { UpdateUserService } from '@/services/updateUser'
+import { UserService } from '@/services/user'
 import { updateNameResolve, UpdateNameResolve } from '@/types/update/name'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
@@ -16,7 +16,7 @@ export const UpdateUserNameForm = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: { name: string }) =>
-      await UpdateUserService.changeName(user?.id, data.name),
+      await UserService.updateName(user?.id, data.name),
     onSuccess: async () => {
       toast.success('Nome atualizado com sucesso!')
       setTimeout(() => redirect('/app/account'), 400)

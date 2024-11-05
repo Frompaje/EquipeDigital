@@ -3,7 +3,7 @@ import { LoadingSpin } from '@/components/common/loadingSpin'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useAuth } from '@/providers/authContext'
-import { UpdateUserService } from '@/services/updateUser'
+import { UserService } from '@/services/user'
 import {
   updatePasswordResolve,
   UpdatePasswordResolve,
@@ -19,7 +19,7 @@ export const UpdateUserPasswordForm = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: { password: string; repeatPassword?: string }) =>
-      await UpdateUserService.password(
+      await UserService.updatePassword(
         user?.id,
         data.password,
         data.repeatPassword,
