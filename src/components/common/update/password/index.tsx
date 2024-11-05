@@ -47,14 +47,14 @@ export const UpdateUserPasswordForm = () => {
   }
 
   return (
-    <div className="flex flex-col w-full h-full justify-center">
+    <div className="flex flex-col w-full  md:items-center h-screen justify-start">
       <form
         onSubmit={handleSubmit((data) => handleUpdatePasswordForm(data))}
-        className="flex justify-center "
+        className="flex justify-center max-w-[768px] md:w-full "
       >
         <div className="w-full p-4  flex flex-col gap-2">
           <div>
-            <label className="text-purple-800" htmlFor="email">
+            <label className="text-purple-100" htmlFor="email">
               Nova senha
             </label>
             <Input
@@ -66,7 +66,7 @@ export const UpdateUserPasswordForm = () => {
           </div>
 
           <div>
-            <label className="text-purple-800" htmlFor="email">
+            <label className="text-purple-100" htmlFor="email">
               Digite novamente a senha
             </label>
             <Input

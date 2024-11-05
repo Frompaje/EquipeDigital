@@ -44,21 +44,21 @@ export const UpdateUserNameForm = () => {
   }
 
   return (
-    <div className="flex flex-col w-full h-full justify-center">
+    <div className="flex flex-col w-full  justify-start md:items-center h-screen">
       <form
         onSubmit={handleSubmit((data) => handleUpdateEmailForm(data.name))}
-        className="flex justify-center "
+        className="flex justify-center max-w-[768px] md:w-full"
       >
         <div className="w-full p-4  flex flex-col gap-2">
           <div className="flex flex-col gap-2">
-            <span className="text-purple-950">Nome Atual</span>
-            <span className="border p-1 w-full rounded cursor-pointer  text-gray-400">
+            <span className="text-purple-100">Nome Atual</span>
+            <span className="border p-1 w-full rounded cursor-pointer  text-gray-500 bg-white">
               {user && user.name}
             </span>
           </div>
 
           <div>
-            <label className="text-purple-800" htmlFor="name">
+            <label className="text-purple-100" htmlFor="name">
               Digite o novo nome
             </label>
             <Input

@@ -43,21 +43,21 @@ export const UpdateUserEmailForm = () => {
   }
 
   return (
-    <div className="flex flex-col w-full h-full justify-center">
+    <div className="flex flex-col  h-screen items-center justify-start">
       <form
         onSubmit={handleSubmit((data) => handleUpdateEmailForm(data.newEmail))}
-        className="flex justify-center "
+        className="flex justify-center w-full max-w-[768px]"
       >
-        <div className="w-full p-4  flex flex-col gap-2">
+        <div className="p-4 flex flex-col gap-2 w-full">
           <div className="flex flex-col gap-2">
-            <span className="text-purple-950">Email Atual</span>
-            <span className="border p-1 w-full rounded cursor-pointer  text-gray-400">
+            <span className="text-purple-100">Email Atual</span>
+            <span className="border p-1 w-full rounded cursor-pointer  text-gray-500 bg-white">
               {user && user.email}
             </span>
           </div>
 
           <div>
-            <label className="text-purple-800" htmlFor="email">
+            <label className="text-purple-100" htmlFor="email">
               Novo Email
             </label>
             <Input
