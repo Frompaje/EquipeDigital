@@ -14,7 +14,7 @@ type Props = {
   dialogRef: React.RefObject<HTMLDialogElement>
 }
 
-const UpdateDailog = ({ id, dialogRef }: Props) => {
+const DeleteDailog = ({ id, dialogRef }: Props) => {
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: UpdateInfoResolve) =>
       await UserService.updateAllInfo(id, data),
@@ -118,4 +118,4 @@ const UpdateDailog = ({ id, dialogRef }: Props) => {
   )
 }
 
-export default UpdateDailog
+export default DeleteDailog

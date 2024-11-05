@@ -10,19 +10,21 @@ type Props = {
   swithMenu: { [key: number]: boolean }
   handleSwithMenu: (index: number) => void
   dialogRef: React.RefObject<HTMLDialogElement>
-  id: string
-  openDialog: () => void
+  handleDialogWithId: () => void
   isLoading: boolean
+  refetch: () => void
+  id: string
 }
 export const DashBoardMobile = ({
   data,
   user,
   swithMenu,
   handleSwithMenu,
-  openDialog,
-  id,
-  dialogRef,
+  handleDialogWithId,
   isLoading,
+  refetch,
+  dialogRef,
+  id,
 }: Props) => {
   const isAdmin = user?.role === 'Admin'
 
@@ -69,10 +71,14 @@ export const DashBoardMobile = ({
                   </li>
                   {isAdmin && (
                     <li className="flex justify-center border border-1 rounded border-purple-900">
-                      <Button onClick={openDialog}>
+                      <Button onClick={handleDialogWithId}>
                         <Pencil />
                       </Button>
-                      <UpdateDailog id={id} dialogRef={dialogRef} />
+                      <UpdateDailog
+                        refetch={refetch}
+                        id={id}
+                        dialogRef={dialogRef}
+                      />
                     </li>
                   )}
                   {isAdmin && (

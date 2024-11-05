@@ -1,8 +1,12 @@
 import { API } from '@/lib/axios'
 import { RegisterSchema } from '@/types/schema/register'
-import { UpdateInfoResolve } from '@/types/update/info'
 
 export class UserService {
+  static async register(data: RegisterSchema) {
+    const response = await API.post('/signUp', data)
+    return response.data
+  }
+
   static async updateEmail(id?: string, newEmail?: string, oldEmail?: string) {
     await API.patch('/updateEmail', {
       id,
@@ -30,20 +34,30 @@ export class UserService {
     })
   }
 
-  static async updateAllInfo(id: string, data: UpdateInfoResolve) {
+  static async updateAllInfo(
+    id: string,
+    email: string,
+    name: string,
+    password: string,
+  ) {
     await API.patch('/updateInfo', {
       id,
-      data,
+      email,
+      name,
+      password,
     })
   }
 
-  static async register(data: RegisterSchema) {
-    const response = await API.post('signUp', data)
-    return response.data
+  static async deleteUser(id: string) {
+    await API.delete('/user', {
+      data: {
+        id,
+      },
+    })
   }
 
   static async listUser() {
-    const response = await API.get('user')
+    const response = await API.get('/listUsers')
     return response.data.response
   }
 }

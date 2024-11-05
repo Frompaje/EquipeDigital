@@ -16,13 +16,13 @@ const Dashboard = () => {
 
   const dialogRef = useRef<HTMLDialogElement>(null)
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['users', user?.id],
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ['users'],
     queryFn: () => UserService.listUser(),
     staleTime: 1000 * 60 * 5,
   })
 
-  const [valorInputId] = useState('')
+  const [valorInputId, setValorInputId] = useState('')
 
   const isAdmin = user?.role === 'Admin'
 
@@ -35,22 +35,13 @@ const Dashboard = () => {
     }))
   }
 
-  const openDialog = () => {
+  const handleDialogWithId = (value: User) => {
+    setValorInputId(value.id)
     dialogRef.current?.showModal()
   }
 
   return (
     <main className="p-4 flex flex-col justify-center ">
-      <DashBoardMobile
-        data={data}
-        user={user}
-        swithMenu={swithMenu}
-        handleSwithMenu={handleSwithMenu}
-        dialogRef={dialogRef}
-        id={valorInputId}
-        openDialog={openDialog}
-        isLoading={isLoading}
-      />
       <div>
         <div className="flex-col p-4 bg-gray-100 rounded  hidden lg:flex">
           <h1 className="font-bold font-">Tabela dos Usuários </h1>
@@ -65,44 +56,61 @@ const Dashboard = () => {
             <div className="flex justify-center">Email</div>
 
             {isAdmin && <div className="flex justify-center">Ações</div>}
-            {isAdmin && <div className="flex justify-center">Role</div>}
+            {isAdmin && <div className="flex justify-center">Cargo</div>}
           </div>
           {isLoading && <LoadingSpin />}
           {data &&
             data.map((value: User) => (
-              <div key={value.email} className="max-h-56  overflow-auto">
-                <div>
-                  <ul
-                    className={
-                      isAdmin
-                        ? 'grid grid-cols-4 gap-4 p-4 rounded-2xl text-black bg-white mb-1'
-                        : 'grid grid-cols-2 gap-4 p-4 rounded-2xl text-black bg-white mb-1'
-                    }
-                  >
-                    <li className="flex  justify-center items-center border border-1 rounded border-purple-900">
-                      <span>{value.name}</span>
-                    </li>
-
-                    <li className="flex  justify-center items-center  border border-1 rounded border-purple-900">
-                      <span>{value.email}</span>
-                    </li>
-
-                    {isAdmin && (
-                      <li className="flex justify-center items-center  border border-1 rounded border-purple-900">
-                        <Button onClick={openDialog}>
-                          <Pencil />
-                        </Button>
-                        <UpdateDailog id={valorInputId} dialogRef={dialogRef} />
+              <>
+                <DashBoardMobile
+                  data={data}
+                  user={user}
+                  swithMenu={swithMenu}
+                  handleSwithMenu={handleSwithMenu}
+                  dialogRef={dialogRef}
+                  handleDialogWithId={() => handleDialogWithId(value)}
+                  isLoading={isLoading}
+                  refetch={refetch}
+                  id={valorInputId}
+                />
+                <div key={value.id} className="max-h-56  overflow-auto">
+                  <div>
+                    <ul
+                      className={
+                        isAdmin
+                          ? 'grid grid-cols-4 gap-4 p-4 rounded-2xl text-black bg-white mb-1'
+                          : 'grid grid-cols-2 gap-4 p-4 rounded-2xl text-black bg-white mb-1'
+                      }
+                    >
+                      <li className="flex  justify-center items-center border border-1 rounded border-purple-900">
+                        <span>{value.name}</span>
                       </li>
-                    )}
-                    {isAdmin && (
-                      <li className="flex justify-center border items-center   border-1 rounded border-purple-900">
-                        <span className="text-center">{value.role}</span>
+
+                      <li className="flex  justify-center items-center  border border-1 rounded border-purple-900">
+                        <span>{value.email}</span>
                       </li>
-                    )}
-                  </ul>
+
+                      {isAdmin && (
+                        <li className="flex justify-center items-center  border border-1 rounded border-purple-900">
+                          <Button onClick={() => handleDialogWithId(value)}>
+                            <Pencil />
+                          </Button>
+                          <UpdateDailog
+                            refetch={refetch}
+                            id={valorInputId}
+                            dialogRef={dialogRef}
+                          />
+                        </li>
+                      )}
+                      {isAdmin && (
+                        <li className="flex justify-center border items-center   border-1 rounded border-purple-900">
+                          <span className="text-center">{value.role}</span>
+                        </li>
+                      )}
+                    </ul>
+                  </div>
                 </div>
-              </div>
+              </>
             ))}
         </div>
       </div>

@@ -16,13 +16,11 @@ export const LoginForm = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: AuthService.auth,
     onSuccess: async (data) => {
-      console.log('tokenResponse:' + data)
       await handleLogin(data)
       toast.success('Bem-vindo(a), Logado com sucesso!')
     },
 
-    onError: async (error) => {
-      console.log(error)
+    onError: async () => {
       toast.error('Credenciais inválidas!')
     },
   })
