@@ -8,6 +8,10 @@ const listNav = [
     href: '/app/account',
   },
   {
+    name: 'Home',
+    href: '/app/',
+  },
+  {
     name: 'Sair',
     href: '/',
   },

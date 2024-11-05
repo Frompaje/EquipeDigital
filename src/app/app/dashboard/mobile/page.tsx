@@ -1,25 +1,28 @@
+import DeleteDailog from '@/components/common/actions/delete/dailog'
+import { Button } from '@/components/ui/button'
 import { User } from '@/types/user'
-import { ChevronUp } from 'lucide-react'
-
-type DataResponse = {
-  name: string
-  email: string
-  acoes: string
-}
+import { ChevronUp, Pencil } from 'lucide-react'
 
 type Props = {
+  data: User[] | null
   user: User | null
-  data: DataResponse[] | null
   swithMenu: { [key: number]: boolean }
   handleSwithMenu: (index: number) => void
+  dialogRef: React.RefObject<HTMLDialogElement>
+  id: string
+  openDialog: () => void
 }
-
 export const DashBoardMobile = ({
   data,
   user,
   swithMenu,
   handleSwithMenu,
+  openDialog,
+  id,
+  dialogRef,
 }: Props) => {
+  const isAdmin = user?.role === 'Admin'
+
   return (
     <div className="flex flex-col p-4 bg-gray-100 rounded max-h-56 lg:hidden">
       <h1 className="font-bold font-">Tabela dos Usuários </h1>
@@ -59,15 +62,20 @@ export const DashBoardMobile = ({
                       </span>
                       <span>{value.email}</span>
                     </div>
-                    {user?.role === 'Admin' && (
-                      <div className="flex flex-col border border-1 border-purple-900">
-                        <span className="w-full bg-purple-950 text-white">
-                          Ações
-                        </span>
-                        <span>{value.acoes}</span>
-                      </div>
-                    )}
                   </li>
+                  {isAdmin && (
+                    <li className="flex justify-center border border-1 rounded border-purple-900">
+                      <Button onClick={openDialog}>
+                        <Pencil />
+                      </Button>
+                      <DeleteDailog id={id} dialogRef={dialogRef} />
+                    </li>
+                  )}
+                  {isAdmin && (
+                    <li className="flex justify-center border  border-1 rounded border-purple-900">
+                      <span className="text-center">{value.role}</span>
+                    </li>
+                  )}
                 </ul>
               )}
             </div>

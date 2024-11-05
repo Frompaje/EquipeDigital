@@ -1,4 +1,5 @@
 import { API } from '@/lib/axios'
+import { UpdateInfoResolve } from '@/types/update/info'
 
 export class UpdateUserService {
   static async email(id?: string, newEmail?: string, oldEmail?: string) {
@@ -25,6 +26,13 @@ export class UpdateUserService {
     await API.patch('/updateName', {
       id,
       name,
+    })
+  }
+
+  static async changeAllInfo(id: string, data: UpdateInfoResolve) {
+    await API.patch('/updateInfo', {
+      id,
+      data,
     })
   }
 }
