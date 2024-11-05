@@ -10,7 +10,8 @@ export async function POST(req: Request) {
   try {
     const body = await req.json()
 
-    const { name, email, password, repeatPassword } = registerSchema.parse(body)
+    const { name, email, password, repeatPassword, role } =
+      registerSchema.parse(body)
 
     if (password !== repeatPassword) {
       throw new InvalidCredential()
@@ -33,7 +34,7 @@ export async function POST(req: Request) {
         name,
         email,
         password: hashedPassword,
-        role: 'Admin',
+        role,
       },
     })
 

@@ -87,6 +87,16 @@ export const RegisterForm = () => {
               />
             </div>
           </div>
+          <div className="flex flex-col">
+            <label className="text-purple-800" htmlFor="repeatPassword">
+              Escolha seu cargo
+            </label>
+
+            <select className="p-2  border rounded" {...register('role')}>
+              <option value="Admin">Admin</option>
+              <option value="User">User</option>
+            </select>
+          </div>
 
           <Button type="submit" disabled={isPending || !isValid}>
             {isPending ? <LoadingSpin /> : 'Inscrever-se'}

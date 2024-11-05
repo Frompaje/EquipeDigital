@@ -44,7 +44,7 @@ export const LoginForm = () => {
         className="flex justify-center "
       >
         <div className="w-full p-4 md:w-9/12 flex flex-col gap-4">
-          <div>
+          <div className="flex flex-col gap-1">
             <label className="text-purple-800" htmlFor="email">
               Email
             </label>
@@ -55,7 +55,7 @@ export const LoginForm = () => {
               {...register('email')}
             />
           </div>
-          <div>
+          <div className="flex flex-col gap-1">
             <label className="text-purple-800" htmlFor="password">
               Senha
             </label>
