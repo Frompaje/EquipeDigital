@@ -3,24 +3,8 @@
 import { DoorOpen, House, SquareUserRound } from 'lucide-react'
 import { MenuMobile } from './menuMobile'
 import Link from 'next/link'
-
-const listNav = [
-  {
-    name: 'Home',
-    href: '/app/',
-    icon: <House />,
-  },
-  {
-    name: 'Conta',
-    href: '/app/account',
-    icon: <SquareUserRound />,
-  },
-  {
-    name: 'Sair',
-    href: '/',
-    icon: <DoorOpen />,
-  },
-]
+import { Button } from '../ui/button'
+import { Leave } from '../common/leave'
 
 export const Header = () => {
   return (
@@ -29,16 +13,27 @@ export const Header = () => {
         <MenuMobile />
 
         <ul className="hidden gap-5 p-1 md:flex">
-          {listNav.map((value) => (
-            <li
-              key={value.name}
-              className="flex p-1 rounded cursor-pointer hover:bg-purple-700 hover:text-white"
-            >
-              <Link href={value.href} className="flex gap-1  ">
-                {value.icon} {value.name}
-              </Link>
-            </li>
-          ))}
+          <li className="p-1 w-full rounded cursor-pointer hover:text-white">
+            <Link href={'/app/'}>
+              <Button className="w-full flex gap-1">
+                <House /> Home
+              </Button>
+            </Link>
+          </li>
+
+          <li className="p-1 w-full rounded cursor-pointer  hover:text-white">
+            <Link href={'/app/account'}>
+              <Button className="w-full flex gap-1">
+                <SquareUserRound /> Home
+              </Button>
+            </Link>
+          </li>
+
+          <li className="p-1 w-full rounded cursor-pointer  hover:text-white">
+            <Link href={'/app/account'}>
+              <Leave />
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>

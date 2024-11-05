@@ -50,7 +50,6 @@ const Dashboard = () => {
   const handleDialogDeleteWithId = (value: User) => {
     setValorInputId(value.id)
     dialogRefDelete.current?.showModal()
-    console.log()
   }
 
   return (

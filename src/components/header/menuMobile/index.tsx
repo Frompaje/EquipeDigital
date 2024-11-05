@@ -1,24 +1,8 @@
-import { ChevronUp, DoorOpen, House, SquareUserRound } from 'lucide-react'
+import { ChevronUp, House, SquareUserRound } from 'lucide-react'
 import { useState } from 'react'
 import Link from 'next/link'
-
-const listNav = [
-  {
-    name: 'Home',
-    href: '/app/',
-    icon: <House />,
-  },
-  {
-    name: 'Conta',
-    href: '/app/account',
-    icon: <SquareUserRound />,
-  },
-  {
-    name: 'Sair',
-    href: '/',
-    icon: <DoorOpen />,
-  },
-]
+import { Leave } from '@/components/common/leave'
+import { Button } from '@/components/ui/button'
 
 export const MenuMobile = () => {
   const [swithMenu, setSwithMenu] = useState(false)
@@ -42,19 +26,27 @@ export const MenuMobile = () => {
 
       {swithMenu && (
         <ul className="absolute border rounded-b-lg border-purple-950 left-0 p-2 right-0 w-full text-purple-600 bg-white top-14 justify-items-end z-50">
-          {listNav.map((value) => (
-            <li
-              key={value.name}
-              className="p-1 w-full rounded cursor-pointer hover:bg-purple-400 hover:text-white"
-            >
-              <Link href={value.href}>
-                <div className="w-full flex gap-1">
-                  {value.icon}
-                  {value.name}
-                </div>
-              </Link>
-            </li>
-          ))}
+          <li className="p-1 w-full rounded cursor-pointer hover:bg-purple-400 hover:text-white">
+            <Link href={'/app/'}>
+              <Button className="w-full flex gap-1">
+                <House /> Home
+              </Button>
+            </Link>
+          </li>
+
+          <li className="p-1 w-full rounded cursor-pointer hover:bg-purple-400 hover:text-white">
+            <Link href={'/app/account'}>
+              <Button className="w-full flex gap-1">
+                <SquareUserRound /> Home
+              </Button>
+            </Link>
+          </li>
+
+          <li className="p-1 w-full rounded cursor-pointer hover:bg-purple-400 hover:text-white">
+            <Link href={'/app/account'}>
+              <Leave />
+            </Link>
+          </li>
         </ul>
       )}
     </div>

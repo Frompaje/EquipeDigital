@@ -44,7 +44,7 @@ const DeleteDialog = ({ id, dialogRef, refetch }: Props) => {
         <Button onClick={handleDelete} disabled={isPending}>
           {isPending ? <LoadingSpin /> : 'Sim'}
         </Button>
-        <Button onClick={closeDialog} variant="secondary" disabled={isPending}>
+        <Button onClick={closeDialog} disabled={isPending}>
           Não
         </Button>
       </div>
