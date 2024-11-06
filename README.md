@@ -43,7 +43,7 @@ Siga as etapas abaixo para configurar e executar o projeto localmente.
       ```
  4. No terminal use o comando. Para subir o banco 
     ```bash
-     docker compose up
+     docker compose up -d
     ```
 
 5. Baixe prisma generate. Use esse comando no terminal
