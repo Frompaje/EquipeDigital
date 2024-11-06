@@ -28,3 +28,37 @@ Siga as etapas abaixo para configurar e executar o projeto localmente.
    ```bash
    git clone git@github.com:Frompaje/EquipeDigital.git
    ```
+ 2. Entre no projeto 
+    ```bash
+       cd EquipeDigital
+    ```
+ 3. Instale as dependências:
+    ```bash
+      npm i
+    ```
+ 3. Configure a variavel local para o prisma achar o banco.
+      - Crie um arquivo chamado .env e adicione: 
+      ```ts
+      DATABASE_URL="postgresql://docker:docker@localhost:5432/api-digital?schema=public"
+      ```
+ 4. No terminal use o comando. Para subir o banco 
+    ```bash
+     docker compose up
+    ```
+
+5. Baixe prisma generate. Use esse comando no terminal
+    ```bash
+     npx prisma generate
+    ```
+6. Agora baixe as migrates. Usando :
+   ```bash
+     npx prisma migrate dev 
+    ```
+
+7. Agora só rodar o projeto !
+     ```bash
+       npm run dev
+     ```
+ ## Observação :
+- Entendo que eu podia usar o dockerFile para facilitar a instalação só rodando ```docker compose up --build```, infelizmente tomei um gap por conta da configuração do next. Mesmo assim como podem ve nos comites tentei fazer mas como não consegui, e pelo horário resolvi fazer só o ```banco com docker-compose.yml```.
+- Agradeço pelo teste. Já estou trabalhando para resolver esse gap que tomei.
