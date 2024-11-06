@@ -59,6 +59,3 @@ Siga as etapas abaixo para configurar e executar o projeto localmente.
      ```bash
        npm run dev
      ```
- ## Observação :
-- Entendo que eu podia usar o dockerFile para facilitar a instalação só rodando ```docker compose up --build```, infelizmente tomei um gap por conta da configuração do next. Mesmo assim como podem ve nos comites tentei fazer mas como não consegui, e pelo horário resolvi fazer só o ```banco com docker-compose.yml```.
-- Agradeço pelo teste. Já estou trabalhando para resolver esse gap que tomei.
